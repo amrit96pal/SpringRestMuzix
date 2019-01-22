@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UerConfig {
+public class TrackConfig {
     @Bean
     ServletRegistrationBean h2servletRegistration(){
         ServletRegistrationBean servletRegistrationBean= new ServletRegistrationBean(new WebdavServlet());

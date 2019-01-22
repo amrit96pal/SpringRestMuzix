@@ -1,7 +1,7 @@
 package com.stackroute.Controller;
 
-import com.stackroute.Service.UserService;
-import com.stackroute.domain.User;
+import com.stackroute.Service.TrackService;
+import com.stackroute.domain.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +12,19 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("first")
-public class UserController {
+public class TrackController {
 
-    UserService userService;
+    TrackService trackService;
     @Autowired
-    public UserController(UserService userService){
-        this.userService=userService;
+    public TrackController(TrackService trackService){
+        this.trackService=trackService;
     }
 
     @PostMapping("ans")
-    public ResponseEntity<?> saveTheUser(@RequestBody User user){
+    public ResponseEntity<?> saveTheTrack(@RequestBody Track track){
         ResponseEntity responseEntity;
         try {
-            User user12=userService.saveUser(user);
+            Track Track12=trackService.saveTrack(track);
             responseEntity=new ResponseEntity<String>("Success", HttpStatus.CREATED);
             return responseEntity;
         }catch (Exception e){
@@ -36,10 +36,10 @@ public class UserController {
 
 
     @GetMapping("anss")
-    public ResponseEntity<?> getAllUserAvailable(){
+    public ResponseEntity<?> getAllTrackAvailable(){
         ResponseEntity responseEntity;
         try {
-            return new ResponseEntity<List<User>>(userService.getAllUsers(),HttpStatus.CREATED);
+            return new ResponseEntity<List<Track>>(trackService.getAllTracks(),HttpStatus.CREATED);
         }catch (Exception e){
             responseEntity=new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
             return responseEntity;
@@ -48,21 +48,21 @@ public class UserController {
 
 
     @GetMapping("ans")
-    public ResponseEntity<?> getUserUsingId(@RequestParam String id){
+    public ResponseEntity<?> getTrackUsingId(@RequestParam String id){
         ResponseEntity responseEntity;
         try {
-            return new ResponseEntity<Optional<User>>(userService.getUserById(Integer.parseInt(id)), HttpStatus.CREATED);
+            return new ResponseEntity<Optional<Track>>(trackService.getTrackById(Integer.parseInt(id)), HttpStatus.CREATED);
         }catch (Exception e){
             responseEntity=new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
             return responseEntity;
         }
     }
 
-    @GetMapping("ansusername")
-    public ResponseEntity<?> getUserUsingName(@RequestParam String name){
+    @GetMapping("ansTrackname")
+    public ResponseEntity<?> getTrackUsingName(@RequestParam String name){
         ResponseEntity responseEntity;
         try {
-            return new ResponseEntity<User>(userService.getBYFirstname(name), HttpStatus.CREATED);
+            return new ResponseEntity<Track>(trackService.getBYTrackname(name), HttpStatus.CREATED);
         }catch (Exception e){
             responseEntity=new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
             return responseEntity;
@@ -71,10 +71,10 @@ public class UserController {
 
 
     @DeleteMapping("ans")
-    public ResponseEntity<?> deleteTheUser(@RequestParam String id){
+    public ResponseEntity<?> deleteTheTrack(@RequestParam String id){
         ResponseEntity responseEntity;
         try {
-            userService.delete(Integer.parseInt(id));
+            trackService.delete(Integer.parseInt(id));
             responseEntity=new ResponseEntity<String>("Success", HttpStatus.CREATED);
             return responseEntity;
         }catch (Exception e){
@@ -84,10 +84,10 @@ public class UserController {
     }
 
     @PutMapping("ans")
-    public ResponseEntity<?> updateTheUser(@RequestBody User user){
+    public ResponseEntity<?> updateTheTrack(@RequestBody Track Track){
         ResponseEntity responseEntity;
         try {
-            userService.updateUser(user);
+            trackService.updateTrack(Track);
             responseEntity=new ResponseEntity<String>("Success", HttpStatus.CREATED);
             return responseEntity;
         }catch (Exception e){
